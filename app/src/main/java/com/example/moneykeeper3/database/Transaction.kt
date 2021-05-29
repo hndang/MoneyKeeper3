@@ -2,28 +2,31 @@ package com.example.moneykeeper3.database
 
 import androidx.room.*
 
-@Entity(tableName = "transactions")
+
+@Entity(tableName = "transactionTable", foreignKeys = [ForeignKey(entity = Category::class,
+        parentColumns = arrayOf("name"),
+        childColumns = arrayOf("categoryName"),
+        onDelete = ForeignKey.SET_DEFAULT,
+        onUpdate = ForeignKey.CASCADE)])
 data class Transaction(
-        @PrimaryKey(autoGenerate=true) val transactionId: Long,
-        val date: Long,
-        val amount: Double,
-        val categoryId: String,
-        val note: String,
+        @PrimaryKey(autoGenerate=true) val transactionId: Long = 0,
+        val transactionDate: Long,
+        val transactionAmount: Double,
+        val categoryName: String = "Unknown",
+        val transactionNote: String,
 )
 
-@Entity(tableName = "category")
+@Entity(tableName = "categoryTable")
 data class Category(
         @PrimaryKey val name: String,
-        val color: Int,
-        val icon: Int
+        val categoryColor: Int,
+        val categoryIcon: String
 )
 
-// relation db
-data class CategoryWithTransaction (
-        @Embedded val category: Category,
-
+data class CategoryAndTransaction(
+        @Embedded val transaction: Transaction,
         @Relation(
-                parentColumn = "name",
-                entityColumn = "categoryId"
-        ) val transactions: List<Transaction>
+                parentColumn = "categoryName",
+                entityColumn = "name"
+        ) val category: Category
 )

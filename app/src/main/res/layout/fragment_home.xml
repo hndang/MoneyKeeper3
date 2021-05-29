@@ -5,12 +5,16 @@
     tools:context=".HomeFragment">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.moneykeeper3.model.TransactionViewModel" />
     </data>
     <LinearLayout
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="100"
+        android:layout_margin="@dimen/spacing_base"
         android:orientation="vertical">
 
         <TextView
@@ -19,6 +23,26 @@
             android:gravity="center"
             android:textSize="@dimen/text_money_main_size"
             android:text="$Money"/>
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "test"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:checked="true"
+                app:checkedIconEnabled="true"
+                app:checkedIconVisible="true"
+                app:closeIconVisible="true"
+                android:text = "test 2"/>
+        </com.google.android.material.chip.ChipGroup>
+
         <Button
             android:id="@+id/bAddTransaction"
             android:layout_width="wrap_content"
@@ -38,10 +62,15 @@
         </androidx.viewpager2.widget.ViewPager2>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/rv_transactions"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50" />
+            android:layout_weight="50"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:listData="@{viewModel.dateToday}"
+            tools:listitem="@layout/rv_transaction_item"/>
+
+
 
     </LinearLayout>
 
