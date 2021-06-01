@@ -7,4 +7,6 @@
     <dimen name="amountRV">24sp</dimen>
     <dimen name="categoryRV">20sp</dimen>
     <dimen name="dateRV">16sp</dimen>
+    <dimen name="transaction_input_field_margin">60dp</dimen>
+    <dimen name="input_text_vertical_margin">4dp</dimen>
 </resources>

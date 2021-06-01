@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">MoneyKeeper3</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="transaction_fragment_label">New Transaction</string>
+    <string name="money">$ %1$.2f</string>
+    <string name="delete_button">Delete</string>
+    <string name="save_button">Save</string>
+    <string name="hint_transaction_amount">money amount</string>
+    <string name="hint_note">additional note</string>
+    <string name="content_description_rv_item">Category Icon</string>
+    <string name="transaction_hint_category">category</string>
+    <string name="transaction_choose_category_button">Choose category</string>
+    <string name="home_floating_button_description">New transaction button</string>
 </resources>

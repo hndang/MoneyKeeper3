@@ -34,6 +34,17 @@ interface TransactionDao {
     fun getTransactionByDateRangeDistinct(startDate: Long, endDate: Long ) =
         getTransactionByDateRange(startDate, endDate).distinctUntilChanged()
 
+    @androidx.room.Transaction
+    @Query("SELECT * FROM transactionTable where (transactionDate BETWEEN :startDate AND :endDate) AND (categoryName IN (:categories)) order by transactionDate DESC" )
+    fun getTransactionWithFilter(startDate: Long, endDate: Long, categories: List<String>): Flow<List<CategoryAndTransaction>>
+    fun getTransactionWithFilterDistinct(startDate: Long, endDate: Long, categories: List<String>) =
+        getTransactionWithFilter(startDate, endDate, categories).distinctUntilChanged()
+
+//    @androidx.room.Transaction
+//    @Query("SELECT * FROM transactionTable where transactionDate BETWEEN :startDate AND :endDate AND categoryName IN ('Food') order by transactionDate DESC" )
+//    fun getTransactionWithFilter(startDate: Long, endDate: Long): Flow<List<CategoryAndTransaction>>
+//    fun getTransactionWithFilterDistinct(startDate: Long, endDate: Long) =
+//        getTransactionWithFilter(startDate, endDate).distinctUntilChanged()
 
     // Category actions
     @Insert
@@ -48,6 +59,7 @@ interface TransactionDao {
     @Query("DELETE FROM categoryTable")
     suspend fun deleteAllCategory()
 
+    @androidx.room.Transaction
     @Query("SELECT * FROM categoryTable ORDER BY name ASC ")
     fun getCategories(): Flow<List<Category>>
 

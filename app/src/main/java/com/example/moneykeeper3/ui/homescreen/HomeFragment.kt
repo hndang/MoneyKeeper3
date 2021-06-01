@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.WorkerThread
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -32,7 +33,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val viewModel:TransactionViewModel by viewModels{
+    // Shared view model b/w different fragment
+    private val viewModel:TransactionViewModel by activityViewModels(){
         TransactionViewModelFactory((requireActivity().application as MoneyKeeperApplication).repository)
     }
 
@@ -43,20 +45,28 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.rvTransactions.adapter = TransactionListAdapter()
         binding.viewModel = viewModel
+        binding.fragment = this
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
+
+    fun newChip(viewGroup: ViewGroup): Chip{
+        return layoutInflater.inflate(R.layout.standalone_chip, viewGroup, false) as Chip
+    }
+
+    fun newTransaction(){
+        findNavController().navigate(R.id.action_homeFragment_to_transactionFragment)
+    }
 
 }

@@ -1,14 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.transactionscreen.TransactionFragment">
+    android:id="@+id/layout2">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="transactionViewModel"
+            type="com.example.moneykeeper3.model.TransactionViewModel" />
+        <variable
+            name="fragment"
+            type="com.example.moneykeeper3.ui.transactionscreen.TransactionFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginHorizontal="@dimen/spacing_base">
 
-</FrameLayout>
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_button"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/delete_button"
+            android:textColor="@color/colorWhite"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/save_button"
+            app:layout_constraintTop_toTopOf="@+id/save_button" />
+
+        <ImageButton
+            android:id="@+id/close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_round_close_24"
+            android:contentDescription="cancel button"
+            app:layout_constraintBottom_toBottomOf="@+id/save_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/save_button" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/sign_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:thumb="@drawable/plus_minus_switch"
+            android:onClick="@{() -> fragment.switchTransactionType()}"
+            app:layout_constraintBottom_toBottomOf="@+id/money_text_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/money_text_input"
+            app:useMaterialThemeColors="false" />
+
+        <ImageView
+            android:id="@+id/note_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_round_notes_24"
+            app:layout_constraintBottom_toBottomOf="@+id/note_text_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/note_text_input" />
+
+        <ImageView
+            android:id="@+id/category_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_category_default"
+            app:layout_constraintBottom_toBottomOf="@+id/category_text_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/category_text_input" />
+
+        <ImageView
+            android:id="@+id/date_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/date_input_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/date_input_text"
+            app:srcCompat="@drawable/ic_round_date_range_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/money_text_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/input_text_vertical_margin"
+            android:layout_marginStart="@dimen/transaction_input_field_margin"
+            android:hint="@string/hint_transaction_amount"
+            app:expandedHintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/save_button"
+            app:prefixText="$ -">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/category_text_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/transaction_input_field_margin"
+            android:layout_marginVertical="@dimen/input_text_vertical_margin"
+            android:hint="@string/transaction_hint_category"
+            app:expandedHintEnabled="false"
+            app:startIconDrawable="@drawable/ic_category_unknown_24"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/money_text_input">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/transaction_choose_category_button"
+                android:inputType="none"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/note_text_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/input_text_vertical_margin"
+            android:layout_marginStart="@dimen/transaction_input_field_margin"
+            android:hint="@string/hint_note"
+            app:counterEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/category_text_input">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/date_input_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginVertical="@dimen/input_text_vertical_margin"
+            android:layout_marginStart="@dimen/transaction_input_field_margin"
+            tools:text="DATE"
+            android:onClick="@{() -> fragment.createDatePicker()}"
+            app:layout_constraintEnd_toStartOf="@id/time_input_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/note_text_input" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/time_input_text"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/input_text_vertical_margin"
+            tools:text="TIME"
+            android:onClick="@{() -> fragment.createTimePicker()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/date_input_text"
+            app:layout_constraintTop_toBottomOf="@id/note_text_input" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

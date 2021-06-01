@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars"
             android:id="@+id/category_imageViewRV"
+            android:contentDescription="@string/content_description_rv_item"
             app:bindIcon="@{category.categoryIcon}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,6 +27,7 @@
             tools:text="Category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{category.name}"
             android:textSize="@dimen/categoryRV"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
@@ -36,23 +38,30 @@
             app:layout_constraintStart_toEndOf="@+id/category_imageViewRV" android:layout_marginStart="8dp"
             app:layout_constraintHorizontal_bias="0.05"/>
         <TextView
-            tools:text="Date"
+            android:id="@+id/date_textViewRV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorDateRV"
             android:textSize="@dimen/dateRV"
-            android:id="@+id/date_textViewRV" android:layout_marginTop="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:setTransactionDate="@{transaction.transactionDate}"
             app:layout_constraintTop_toBottomOf="@+id/category_textViewRV"
             app:layout_constraintStart_toStartOf="@+id/category_textViewRV"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="@+id/category_imageViewRV"/>
+            app:layout_constraintBottom_toBottomOf="@+id/category_imageViewRV"
+            tools:text="Date"/>
         <TextView
-            tools:text="$123"
+            android:id="@+id/amount_textViewRV"
             android:textSize="@dimen/amountRV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/amount_textViewRV"
+            android:layout_marginEnd="8dp"
+            app:setMoney="@{transaction.transactionAmount}"
+            app:incomeColor="@{@color/colorIncome}"
+            app:expenseColor="@{@color/colorExpense}"
             app:layout_constraintTop_toTopOf="@+id/category_imageViewRV"
             app:layout_constraintBottom_toBottomOf="@+id/category_imageViewRV"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="$123"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

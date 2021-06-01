@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.net.CookieHandler
 import java.time.LocalDate
+import java.time.ZoneId
 
 @Database(
     entities = [Transaction::class, Category::class],
@@ -66,8 +67,11 @@ abstract class TransactionDatabase : RoomDatabase() {
             }
             // Add demo transaction
             val today = LocalDate.now().atStartOfDay()
-            transactionDao.insertTransaction(Transaction(0,convertCalendarForRepo(today.plusHours(7)).toLong(),33.0,defaultCategory[0].name, "note"))
-            transactionDao.insertTransaction(Transaction(0,convertCalendarForRepo(today.plusHours(15)).toLong(),33.0, defaultCategory[4].name, "note"))
+            transactionDao.insertTransaction(Transaction(0,convertCalendarForRepo(today.plusHours(7)).toLong(),3300.0,defaultCategory[0].name, "note"))
+            transactionDao.insertTransaction(Transaction(0,convertCalendarForRepo(today.plusHours(15)).toLong(),-3443000000.23, defaultCategory[1].name, "note"))
+            transactionDao.insertTransaction(Transaction(0,convertCalendarForRepo(today.plusHours(12)).toLong(),-13.44, defaultCategory[2].name, "note"))
+            transactionDao.insertTransaction(Transaction(0,convertCalendarForRepo(today.plusHours(18)).toLong(),-3.57, defaultCategory[3].name, "note"))
+            transactionDao.insertTransaction(Transaction(0,convertCalendarForRepo(today.plusHours(1)).toLong(),-6.8, defaultCategory[4].name, "note"))
         }
     }
 }
