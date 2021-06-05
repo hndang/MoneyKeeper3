@@ -1,21 +1,23 @@
 package com.example.moneykeeper3.ui.homescreen
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneykeeper3.database.CategoryAndTransaction
-import com.example.moneykeeper3.database.Transaction
-import com.example.moneykeeper3.databinding.FragmentHomeBinding
 import com.example.moneykeeper3.databinding.RvTransactionItemBinding
-import com.example.moneykeeper3.model.TransactionViewModel
+import com.example.moneykeeper3.emptyCategoryAndTransaction
+import timber.log.Timber
 
-class TransactionListAdapter : ListAdapter<CategoryAndTransaction, TransactionListAdapter.TransactionViewHolder>(DiffCallback) {
+class TransactionListAdapter(private val context: Fragment) : ListAdapter<CategoryAndTransaction, TransactionListAdapter.TransactionViewHolder>(DiffCallback) {
+
     class TransactionViewHolder(private val binding: RvTransactionItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(categoryAndTransaction: CategoryAndTransaction){
-            binding.transaction = categoryAndTransaction.transaction
-            binding.category = categoryAndTransaction.category
+        fun bind(categoryAndTransaction: CategoryAndTransaction?){
+            binding.transaction = categoryAndTransaction?.transaction
+            binding.category = categoryAndTransaction?.category
             binding.executePendingBindings()
         }
 
@@ -33,12 +35,19 @@ class TransactionListAdapter : ListAdapter<CategoryAndTransaction, TransactionLi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val binding = RvTransactionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding.fragment = context as HomeFragment
         return TransactionViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val categoryAndTransaction = getItem(position)
-        holder.bind(categoryAndTransaction)
+        if(categoryAndTransaction == emptyCategoryAndTransaction){
+            Timber.d("No data, set empty view")
+        }else{
+            holder.bind(categoryAndTransaction)
+        }
+
     }
+
 
 }

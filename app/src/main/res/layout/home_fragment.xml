@@ -19,7 +19,6 @@
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="100"
         android:layout_marginHorizontal="@dimen/spacing_base"
         android:orientation="vertical">
 
@@ -28,47 +27,23 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="@dimen/text_money_main_size"
-            app:setMoney="@{viewModel.totalMoney}"/>
-
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:categoryList="@{viewModel.categories}"
-            app:viewModel="@{viewModel}"
-            app:fragment="@{fragment}">
-        </com.google.android.material.chip.ChipGroup>
-
-        <Button
-            android:id="@+id/bAddTransaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.getTransactionToday()}"
-            android:text = "add transaction"/>
-        <Button
-            android:id="@+id/bAddCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.getTransactionThisMonth()}"
-            android:text = "add category"/>
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/framelayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="30">
-        </androidx.viewpager2.widget.ViewPager2>
+            android:maxLines="1"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="40sp"
+            tools:text = "-$123,456,789,010.00"
+            app:setMoney="@{viewModel.totalMoney}"
+            app:maxMoneyDigit="@{16}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_transactions"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="70"
+            android:layout_weight="1"
             android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:listData="@{viewModel.transactions}"
+            app:dataUnfiltered="@{viewModel.transactionsDateFilterOnly}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/rv_transaction_item"/>
-
-
 
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -83,4 +58,5 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_baseline_add_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -8,8 +8,8 @@ import java.util.*
 const val DATE_PATTERN_DB = "yyyyMMddHHmmss"
 const val DATE_PATTERN_PARSE = "yyyyMMddHHmmss VV"
 const val DATE_PATTERN_PRETTY_DETAIL = "dd-MMM-yyyy h:mma zz"
-const val TIME_PATTERN_PRETTY = "h:mm a."
-const val DATE_PATTERN_PRETTY = "MMM. dd, yyyy"
+const val TIME_PATTERN_PRETTY = "h:mm a"
+const val DATE_PATTERN_PRETTY = "MMM dd, yyyy"
 const val TIME_ZONE_DB = "America/New_York"
 
 
@@ -17,16 +17,16 @@ const val TIME_ZONE_DB = "America/New_York"
 /**
  * Convert date to strings with zone of TIME_ZONE_DB = "America/Toronto"
  */
-fun convertCalendarForRepo(localDateTime: LocalDateTime): String {
+fun convertCalendarForRepo(localDateTime: LocalDateTime): Long {
     return DateTimeFormatter.ofPattern(DATE_PATTERN_DB).format(
             ZonedDateTime
                     .of(localDateTime,ZoneId.systemDefault())
-                    .withZoneSameInstant(ZoneId.of(TIME_ZONE_DB)))
+                    .withZoneSameInstant(ZoneId.of(TIME_ZONE_DB))).toLong()
 }
 /**
  * parse db date assuming timezone store is TIME_ZONE_DB = "America/Toronto"
  */
-fun getDateFromRepo(date: String): ZonedDateTime{
+fun getDateFromRepo(date: Long): ZonedDateTime{
     val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN_PARSE)
     return ZonedDateTime.parse("$date $TIME_ZONE_DB", formatter).withZoneSameInstant(ZoneId.systemDefault())
 }
@@ -40,7 +40,11 @@ fun formatPrettyDateDetail(zoneDateTime: ZonedDateTime): String{
 }
 
 fun formatTimePretty(time: LocalTime): String{
-    return DateTimeFormatter.ofPattern(TIME_PATTERN_PRETTY).format(time).toLowerCase(Locale.getDefault())
+    return DateTimeFormatter.ofPattern(TIME_PATTERN_PRETTY).format(time)
+}
+
+fun getDateTimePretty(date: String, time:String): LocalDateTime{
+    return LocalDateTime.parse("$date $time", DateTimeFormatter.ofPattern("$DATE_PATTERN_PRETTY $TIME_PATTERN_PRETTY"))
 }
 
 data class DateRange(val startDate: LocalDateTime, val endDate: LocalDateTime)
@@ -50,10 +54,24 @@ fun getDateOfDay(day: Int): DateRange{
     return getDateBetween(tempDate, tempDate)
 }
 
+fun getDateOfThisWeek(): DateRange{
+    val dayOfWeek = LocalDate.now().dayOfWeek
+    val startDate = LocalDate.now().minusDays((dayOfWeek).value.toLong() - 1)
+    val endDate = LocalDate.now().plusDays(7 - (dayOfWeek).value.toLong())
+    return getDateBetween(startDate, endDate)
+}
+
 fun getDateOfMonth(month: Int): DateRange {
     val tempDate = if (month == 0) LocalDate.now() else LocalDate.now().withMonth(month)
     val startDate = tempDate.withDayOfMonth(1)
     val endDate = tempDate.withDayOfMonth(tempDate.lengthOfMonth())
+    return getDateBetween(startDate, endDate)
+}
+
+fun getDateOfYear(year: Int): DateRange{
+    val tempDate = if (year == 0) LocalDate.now() else LocalDate.now().withYear(year)
+    val startDate = tempDate.withDayOfYear(1)
+    val endDate = tempDate.withDayOfYear(tempDate.lengthOfYear())
     return getDateBetween(startDate, endDate)
 }
 

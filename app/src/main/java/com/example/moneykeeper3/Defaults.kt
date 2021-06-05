@@ -1,6 +1,11 @@
 package com.example.moneykeeper3
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.moneykeeper3.database.Category
+import com.example.moneykeeper3.database.CategoryAndTransaction
+import com.example.moneykeeper3.database.Transaction
+import java.time.LocalDateTime
 
 val defaultCategory = listOf(
         Category("Unknown", 0x8eacbb, "ic_unknown"), // This is the Default when get deleted
@@ -24,3 +29,15 @@ val defaultIcon = mapOf(
     "ic_rent" to R.drawable.ic_category_rent,
     "ic_unknown" to R.drawable.ic_category_unknown
 )
+
+val emptyTransaction = Transaction(
+    -1,
+    convertCalendarForRepo(LocalDateTime.now()),
+    0.0,
+    "",
+    ""
+)
+
+val emptyCategory = Category("",0,"")
+
+val emptyCategoryAndTransaction = CategoryAndTransaction(emptyTransaction, emptyCategory)

@@ -4,9 +4,11 @@
     <dimen name="spacing_base">8dp</dimen>
     <dimen name="spacing_small">4dp</dimen>
 
-    <dimen name="amountRV">24sp</dimen>
-    <dimen name="categoryRV">20sp</dimen>
+    <dimen name="amountRV">22sp</dimen>
+    <dimen name="categoryRV">18sp</dimen>
     <dimen name="dateRV">16sp</dimen>
     <dimen name="transaction_input_field_margin">60dp</dimen>
     <dimen name="input_text_vertical_margin">4dp</dimen>
+    <dimen name="min_touch_size">48dp</dimen>
+    <dimen name="rv_item_spread_margin">8dp</dimen>
 </resources>

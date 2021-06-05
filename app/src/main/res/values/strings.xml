@@ -10,4 +10,8 @@
     <string name="transaction_hint_category">category</string>
     <string name="transaction_choose_category_button">Choose category</string>
     <string name="home_floating_button_description">New transaction button</string>
+    <string name="day_filter">Day</string>
+    <string name="week_filter">Week</string>
+    <string name="year_filter">Year</string>
+    <string name="month_filter">Month</string>
 </resources>

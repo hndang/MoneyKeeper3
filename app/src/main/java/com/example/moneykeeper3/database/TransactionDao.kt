@@ -22,11 +22,12 @@ interface TransactionDao {
     @Query("DELETE FROM transactionTable")
     suspend fun deleteAllTransaction()
 
-    @Query("SELECT * FROM transactionTable where transactionDate == :date order by transactionDate DESC")
-    fun getTransactionByDate(date: Long) : List<Transaction>
+    @Query("SELECT * FROM transactionTable where transactionId == :id")
+    suspend fun getTransactionById(id: Long) : Transaction
 
-//    @Query("SELECT * FROM transactionTable where transactionDate BETWEEN :startDate AND :endDate order by transactionDate DESC ")
-//    fun getTransactionByDateRange(startDate: Long, endDate: Long ) : Flow<List<Transaction>>
+    @Query("SELECT * FROM transactionTable where transactionDate == :date order by transactionDate DESC")
+    suspend fun getTransactionByDate(date: Long) : List<Transaction>
+
     @androidx.room.Transaction
     @Query("SELECT * FROM transactionTable where transactionDate BETWEEN :startDate AND :endDate order by transactionDate DESC ")
     fun getTransactionByDateRange(startDate: Long, endDate: Long ) : Flow<List<CategoryAndTransaction>>
@@ -40,11 +41,6 @@ interface TransactionDao {
     fun getTransactionWithFilterDistinct(startDate: Long, endDate: Long, categories: List<String>) =
         getTransactionWithFilter(startDate, endDate, categories).distinctUntilChanged()
 
-//    @androidx.room.Transaction
-//    @Query("SELECT * FROM transactionTable where transactionDate BETWEEN :startDate AND :endDate AND categoryName IN ('Food') order by transactionDate DESC" )
-//    fun getTransactionWithFilter(startDate: Long, endDate: Long): Flow<List<CategoryAndTransaction>>
-//    fun getTransactionWithFilterDistinct(startDate: Long, endDate: Long) =
-//        getTransactionWithFilter(startDate, endDate).distinctUntilChanged()
 
     // Category actions
     @Insert
@@ -63,12 +59,5 @@ interface TransactionDao {
     @Query("SELECT * FROM categoryTable ORDER BY name ASC ")
     fun getCategories(): Flow<List<Category>>
 
-    // Both
-    //@androidx.room.Transaction
-    @Query("SELECT * FROM transactionTable where transactionDate BETWEEN :startDate AND :endDate order by transactionDate DESC ")
-    suspend fun getTransactionByDateRange2(startDate: Long, endDate: Long ) : List<CategoryAndTransaction>
 
-    @androidx.room.Transaction
-    @Query("SELECT * FROM transactionTable ")
-    fun getTransactionByDateRange3() : Flow<List<CategoryAndTransaction>>
 }

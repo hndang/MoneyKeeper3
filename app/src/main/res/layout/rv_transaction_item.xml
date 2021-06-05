@@ -8,10 +8,15 @@
         <variable
             name="category"
             type="com.example.moneykeeper3.database.Category" />
+        <variable
+            name="fragment"
+            type="com.example.moneykeeper3.ui.homescreen.HomeFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:onClick="@{() -> fragment.editTransaction(transaction.transactionId)}">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -21,35 +26,35 @@
             app:bindIcon="@{category.categoryIcon}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            app:layout_constraintStart_toStartOf="parent"/>
         <TextView
-            tools:text="Category"
+            android:id="@+id/category_textViewRV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{category.name}"
             android:textSize="@dimen/categoryRV"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"
-            android:id="@+id/category_textViewRV" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/category_imageViewRV"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/date_textViewRV"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/category_imageViewRV" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.05"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/category_imageViewRV"
+            app:layout_constraintHorizontal_bias="0.06"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            android:layout_marginTop="@dimen/rv_item_spread_margin"
+            tools:text="Entertainment"/>
         <TextView
             android:id="@+id/date_textViewRV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorDateRV"
             android:textSize="@dimen/dateRV"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             app:setTransactionDate="@{transaction.transactionDate}"
             app:layout_constraintTop_toBottomOf="@+id/category_textViewRV"
             app:layout_constraintStart_toStartOf="@+id/category_textViewRV"
-            app:layout_constraintBottom_toBottomOf="@+id/category_imageViewRV"
-            tools:text="Date"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/rv_item_spread_margin"
+            tools:text="Jun 03, 2021"/>
         <TextView
             android:id="@+id/amount_textViewRV"
             android:textSize="@dimen/amountRV"
@@ -62,6 +67,6 @@
             app:layout_constraintTop_toTopOf="@+id/category_imageViewRV"
             app:layout_constraintBottom_toBottomOf="@+id/category_imageViewRV"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="$123"/>
+            tools:text="$123,456,789"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

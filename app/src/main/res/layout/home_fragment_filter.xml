@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.moneykeeper3.model.TransactionViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/filter_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_category_unknown_24"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/date_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:setCheckButton="@{viewModel.dateRangeName}"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <Button
+                    android:id="@+id/day_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/day_filter"
+
+                    style="@style/Widget.App.Button.OutlinedButton.FilterButton"/>
+                <!--                    android:onClick="@{() -> viewModel.getTransactionToday()}"-->
+                <Button
+                    android:id="@+id/week_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/week_filter"
+
+                    style="@style/Widget.App.Button.OutlinedButton.FilterButton"/>
+                <!--                    android:onClick="@{() -> viewModel.getTransactionThisWeek()}"-->
+                <Button
+                    android:id="@+id/month_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/month_filter"
+
+                    style="@style/Widget.App.Button.OutlinedButton.FilterButton"/>
+                <!--                    android:onClick="@{() -> viewModel.getTransactionThisMonth()}"-->
+                <Button
+                    android:id="@+id/year_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/year_filter"
+
+                    style="@style/Widget.App.Button.OutlinedButton.FilterButton"/>
+                <!--                    android:onClick="@{() -> viewModel.getTransactionThisYear()}"-->
+                <Button
+                    android:id="@+id/range_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_round_date_range_24"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </LinearLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13"/>
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
+
+
+</layout>
