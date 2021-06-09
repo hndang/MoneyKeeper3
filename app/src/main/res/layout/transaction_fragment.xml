@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.moneykeeper3.model.TransactionViewModel" />
+            type="dev.hoangdang.moneykeeper3.model.TransactionViewModel" />
         <variable
             name="fragment"
-            type="com.example.moneykeeper3.ui.transactionscreen.TransactionFragment" />
+            type="dev.hoangdang.moneykeeper3.ui.transactionscreen.TransactionFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -153,7 +153,6 @@
             android:padding="16dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             tools:text="Jun. 02, 2021"
-            android:onClick="@{() -> fragment.createDatePicker()}"
             app:setDateTransactionFragment="@{viewModel.currentTransaction.transactionDate}"
             app:layout_constraintEnd_toStartOf="@id/time_input_text"
             app:layout_constraintStart_toStartOf="parent"
@@ -170,7 +169,6 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:padding="16dp"
             tools:text="2:30 am."
-            android:onClick="@{() -> fragment.createTimePicker()}"
             app:setTimeTransactionFragment="@{viewModel.currentTransaction.transactionDate}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/date_input_text"

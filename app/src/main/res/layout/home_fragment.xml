@@ -7,10 +7,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.moneykeeper3.model.TransactionViewModel" />
+            type="dev.hoangdang.moneykeeper3.model.TransactionViewModel" />
         <variable
             name="fragment"
-            type="com.example.moneykeeper3.ui.homescreen.HomeFragment" />
+            type="dev.hoangdang.moneykeeper3.ui.homescreen.HomeFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,6 +22,12 @@
         android:layout_marginHorizontal="@dimen/spacing_base"
         android:orientation="vertical">
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,8 +35,9 @@
             android:textSize="@dimen/text_money_main_size"
             android:maxLines="1"
             android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="40sp"
+            android:autoSizeMinTextSize="30sp"
             tools:text = "-$123,456,789,010.00"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
             app:setMoney="@{viewModel.totalMoney}"
             app:maxMoneyDigit="@{16}"/>
 

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
             name="viewModel"
-            type="com.example.moneykeeper3.model.TransactionViewModel" />
+            type="dev.hoangdang.moneykeeper3.model.TransactionViewModel" />
     </data>
 
     <LinearLayout
@@ -33,7 +32,7 @@
                 android:id="@+id/date_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:setCheckButton="@{viewModel.dateRangeName}"
+                app:setCheckButton="@{viewModel.dateRangeId}"
                 app:singleSelection="true"
                 app:selectionRequired="true">
 
@@ -86,8 +85,7 @@
             android:visibility="gone">
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="13"/>
+                android:layout_height="wrap_content"/>
         </com.google.android.material.chip.ChipGroup>
 
     </LinearLayout>

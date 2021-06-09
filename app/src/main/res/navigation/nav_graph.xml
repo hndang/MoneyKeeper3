@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.moneykeeper3.ui.homescreen.HomeFragment"
+        android:name="dev.hoangdang.moneykeeper3.ui.homescreen.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/home_fragment">
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/transactionFragment"
-        android:name="com.example.moneykeeper3.ui.transactionscreen.TransactionFragment"
+        android:name="dev.hoangdang.moneykeeper3.ui.transactionscreen.TransactionFragment"
         android:label="@string/transaction_fragment_label"
         tools:layout="@layout/transaction_fragment" >
         <argument

@@ -4,13 +4,13 @@
     <data>
         <variable
             name="transaction"
-            type="com.example.moneykeeper3.database.Transaction" />
+            type="dev.hoangdang.moneykeeper3.database.Transaction" />
         <variable
             name="category"
-            type="com.example.moneykeeper3.database.Category" />
+            type="dev.hoangdang.moneykeeper3.database.Category" />
         <variable
             name="fragment"
-            type="com.example.moneykeeper3.ui.homescreen.HomeFragment" />
+            type="dev.hoangdang.moneykeeper3.ui.homescreen.HomeFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -31,9 +31,10 @@
             android:id="@+id/category_textViewRV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{category.name}"
+            android:textColor="@color/material_on_background_emphasis_high_type"
+            android:text="@{transaction.categoryName}"
             android:textSize="@dimen/categoryRV"
-            android:textColor="@color/colorBlack"
+
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/date_textViewRV"
@@ -44,11 +45,24 @@
             android:layout_marginTop="@dimen/rv_item_spread_margin"
             tools:text="Entertainment"/>
         <TextView
+            android:id="@+id/note_textViewRV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{transaction.transactionNote}"
+            android:textColor="@color/material_on_background_disabled"
+            android:ellipsize="end"
+            android:ems="6"
+            android:singleLine="true"
+            app:layout_constraintTop_toBottomOf="@+id/category_textViewRV"
+            app:layout_constraintBottom_toTopOf="@+id/date_textViewRV"
+            app:layout_constraintStart_toStartOf="@+id/category_textViewRV"
+            tools:text="Noteasdfsadfasdfasdf"/>
+        <TextView
             android:id="@+id/date_textViewRV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorDateRV"
             android:textSize="@dimen/dateRV"
+            android:textColor="@color/material_on_background_emphasis_medium"
             app:setTransactionDate="@{transaction.transactionDate}"
             app:layout_constraintTop_toBottomOf="@+id/category_textViewRV"
             app:layout_constraintStart_toStartOf="@+id/category_textViewRV"
